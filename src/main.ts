@@ -64,7 +64,7 @@ WA.onInit().then(() => {
         // Ouvrir une modalité vers le site Web WorkAdventure
         WA.ui.modal.openModal({
             title: "WorkAdventure website",
-            src: 'https://workadventu.re',
+            src: './src/index.html',
             allow: "fullscreen",
             position: "right"
         });
