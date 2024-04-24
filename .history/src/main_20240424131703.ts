@@ -17,9 +17,20 @@ WA.onInit().then(() => {
         lastDirection = moveData.direction;
     });
 
-    WA.room.area.onEnter('jitsiMeetingRoom').subscribe(async () => {
+    // Listen for messages from the iframe
+    window.addEventListener('message', receiveMessage, false);
+
+    function receiveMessage(event) {
+        if (event.data && event.data.message === 'setRole') {
+            const playerRole = event.data.role;
+            console.log('Role selected by the player:', playerRole);
+            // Here you can handle the player role, e.g., update game state or trigger new actions
+        }
+    }
+
+    WA.room.area.onEnter('jitsiMeetingRoom').subscribe(async() => {
         console.log(`The player ${WA.player.name} has entered the zone.`);
-        if (!WA.player.tags.includes('afdfdfdmin')) {
+        if (!WA.player.tags.includes('admin')) {
             console.log('Access denied to the jitsiMeetingRoom. You do not have the "admin" tag.');
 
             // Calculate a position in front of the jitsiMeetingRoom based on last direction
@@ -34,13 +45,14 @@ WA.onInit().then(() => {
             }
 
             // Use teleport to move the player
-            await WA.player.teleport(teleportX, teleportY);
-            WA.ui.displayActionMessage({
-                message: "You cannot access this conference, please contact an administrator if the problem persists",
-                callback: () => {
-                    console.log('The player has confirmed the message.');
-                },
-                type: "warning",
+            WA.player.teleport(teleportX, teleportY).then(() => {
+                WA.ui.displayActionMessage({
+                    message: "You cannot access this conference, please contact an administrator if the problem persists",
+                    callback: () => {
+                        console.log('The player has confirmed the message.');
+                    },
+                    type: "warning",
+                });
             });
         } else {
             console.log('Welcome to the jitsiMeetingRoom!');
@@ -52,7 +64,7 @@ WA.onInit().then(() => {
         }
     });
 
-    function openArray() {
+    function openCalendar() {
         WA.ui.website.open({
             url: "./src/role/tableau.html",
             position: {
@@ -68,42 +80,30 @@ WA.onInit().then(() => {
             allowPolicy: "fullscreen"
         }).then(website => {
             console.log("Calendar opened successfully");
-        
+            mycalendar = website;
         }).catch(err => {
             console.error("Error opening calendar", err);
         });
     }
 
+    function receiveMessage(event) {
+        if (event.data && event.data.message === 'setRole') {
+            const playerRole = event.data.role;
+            console.log('Role selected by the player:', playerRole);
+            // Ajoute un console.log ici pour confirmer la réception et afficher la valeur
+            console.log(`Received role from modal: ${playerRole}`);
+        }
+    }
+    
+
     WA.room.area.onEnter('clock').subscribe(() => {
-        openArray();
+        openCalendar();
     });
 
-    // Add the action bar button
-    WA.ui.actionBar.addButton({
-        id: 'register-btn',
-        type: 'action',
-        imageSrc: 'https://www.google.com/imgres?q=naruto&imgurl=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fnaruto%2Fimages%2Ff%2Ff1%2FNaruto_Partie_I.png%2Frevision%2Flatest%2Fscale-to-width-down%2F1200%3Fcb%3D20151201180820%26path-prefix%3Dfr&imgrefurl=https%3A%2F%2Fnaruto.fandom.com%2Ffr%2Fwiki%2FNaruto_Uzumaki&docid=oRct0Ye4E50Z4M&tbnid=5I4R9HNQovIl2M&vet=12ahUKEwibx76iituFAxWkVqQEHUOJDq0QM3oECBQQAA..i&w=1200&h=900&hcb=2&ved=2ahUKEwibx76iituFAxWkVqQEHUOJDq0QM3oECBQQAA', // Remplacez par l'URL de votre image
-        toolTip: 'Register',
-        callback: (event) => {
-            console.log('Button clicked', event);
-            // Quand un utilisateur clique sur le bouton de la barre d'actions 'Register', nous le supprimons.
-            WA.ui.actionBar.removeButton('register-btn');
-        }
-    });
-    
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
     }).catch(e => console.error(e));
-
 }).catch(e => console.error(e));
-
-console.log(document);
-window.addEventListener('message', function(event) {
-    // Assurez-vous que le message vient de la source attendue ou vérifiez le contenu du message
-   
-        console.log("Data from calendar:", event.data);
-    
-});
 
 export {};

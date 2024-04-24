@@ -90,7 +90,15 @@ WA.onInit().then(() => {
             WA.ui.actionBar.removeButton('register-btn');
         }
     });
-    
+    WA.ui.actionBar.addButton({
+        id: 'register-btn',
+        label: 'Register',
+        callback: (event) => {
+            console.log('Button clicked', event);
+            // When a user clicks on the action bar button 'Register', we remove it.
+            WA.ui.actionBar.removeButton('register-btn');
+        }
+    });
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');

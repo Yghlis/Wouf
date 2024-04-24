@@ -90,7 +90,6 @@ WA.onInit().then(() => {
             WA.ui.actionBar.removeButton('register-btn');
         }
     });
-    
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');

@@ -6,10 +6,20 @@ console.log('Script started successfully');
 
 let lastPosition = { x: 0, y: 0 };  // Initialiser la dernière position connue
 let lastDirection = 'down'; // Initialiser la dernière direction connue
+let WOUFWOUF = ''; // Variable pour stocker le rôle sélectionné
 
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     console.log('Scripting API ready');
+
+    // Add message listener to receive the role from the HTML page
+    window.addEventListener('message', (event) => {
+        console.log("recu");
+        if (event.data.message === 'setRole') {
+            WOUFWOUF = event.data.role; // Assign the role to WOUFWOUF variable
+            console.log(`Role selected: ${WOUFWOUF}`); // Logging the role for verification
+        }
+    });
 
     // Track player's movement to determine the last known position and direction
     WA.player.onPlayerMove((moveData) => {
@@ -68,7 +78,6 @@ WA.onInit().then(() => {
             allowPolicy: "fullscreen"
         }).then(website => {
             console.log("Calendar opened successfully");
-        
         }).catch(err => {
             console.error("Error opening calendar", err);
         });
@@ -78,32 +87,11 @@ WA.onInit().then(() => {
         openArray();
     });
 
-    // Add the action bar button
-    WA.ui.actionBar.addButton({
-        id: 'register-btn',
-        type: 'action',
-        imageSrc: 'https://www.google.com/imgres?q=naruto&imgurl=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fnaruto%2Fimages%2Ff%2Ff1%2FNaruto_Partie_I.png%2Frevision%2Flatest%2Fscale-to-width-down%2F1200%3Fcb%3D20151201180820%26path-prefix%3Dfr&imgrefurl=https%3A%2F%2Fnaruto.fandom.com%2Ffr%2Fwiki%2FNaruto_Uzumaki&docid=oRct0Ye4E50Z4M&tbnid=5I4R9HNQovIl2M&vet=12ahUKEwibx76iituFAxWkVqQEHUOJDq0QM3oECBQQAA..i&w=1200&h=900&hcb=2&ved=2ahUKEwibx76iituFAxWkVqQEHUOJDq0QM3oECBQQAA', // Remplacez par l'URL de votre image
-        toolTip: 'Register',
-        callback: (event) => {
-            console.log('Button clicked', event);
-            // Quand un utilisateur clique sur le bouton de la barre d'actions 'Register', nous le supprimons.
-            WA.ui.actionBar.removeButton('register-btn');
-        }
-    });
-    
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
     }).catch(e => console.error(e));
 
 }).catch(e => console.error(e));
-
-console.log(document);
-window.addEventListener('message', function(event) {
-    // Assurez-vous que le message vient de la source attendue ou vérifiez le contenu du message
-   
-        console.log("Data from calendar:", event.data);
-    
-});
 
 export {};

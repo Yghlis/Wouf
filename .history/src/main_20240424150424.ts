@@ -78,19 +78,6 @@ WA.onInit().then(() => {
         openArray();
     });
 
-    // Add the action bar button
-    WA.ui.actionBar.addButton({
-        id: 'register-btn',
-        type: 'action',
-        imageSrc: 'https://www.google.com/imgres?q=naruto&imgurl=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fnaruto%2Fimages%2Ff%2Ff1%2FNaruto_Partie_I.png%2Frevision%2Flatest%2Fscale-to-width-down%2F1200%3Fcb%3D20151201180820%26path-prefix%3Dfr&imgrefurl=https%3A%2F%2Fnaruto.fandom.com%2Ffr%2Fwiki%2FNaruto_Uzumaki&docid=oRct0Ye4E50Z4M&tbnid=5I4R9HNQovIl2M&vet=12ahUKEwibx76iituFAxWkVqQEHUOJDq0QM3oECBQQAA..i&w=1200&h=900&hcb=2&ved=2ahUKEwibx76iituFAxWkVqQEHUOJDq0QM3oECBQQAA', // Remplacez par l'URL de votre image
-        toolTip: 'Register',
-        callback: (event) => {
-            console.log('Button clicked', event);
-            // Quand un utilisateur clique sur le bouton de la barre d'actions 'Register', nous le supprimons.
-            WA.ui.actionBar.removeButton('register-btn');
-        }
-    });
-    
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
@@ -101,9 +88,9 @@ WA.onInit().then(() => {
 console.log(document);
 window.addEventListener('message', function(event) {
     // Assurez-vous que le message vient de la source attendue ou vérifiez le contenu du message
-   
+    if (event.origin == "https://play.workadventu.re/_/ll77wtwrko9/localhost:5173/map.tmj") {
         console.log("Data from calendar:", event.data);
-    
+    }
 });
 
 export {};
