@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-color: white;
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px; /* Ajout d'une marge en haut pour espacer les éléments */
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        pre {
+            text-align: center;
+        }
+    </style>
+    <script src="https://play.workadventu.re/iframe_api.js"></script>
+</head>
+<body>
+    <div id="editSection">
+        <div>
+            <!-- Le select pour choisir un rôle -->
+            <select id="roleSelect">
+                <option value="administrateur">Administrateur</option>
+                <option value="utilisateur">Utilisateur</option>
+                <!-- Ajoute d'autres options de rôle ici si nécessaire -->
+            </select>
+        </div>
+        <div>
+            <button id="saveButton">Save</button>
+        </div>
+    </div>
+    <pre id="displayText"></pre>
+</body>
+</html>
