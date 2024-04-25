@@ -3,7 +3,7 @@
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
-console.log('CA MARCHE')
+console.log()
 
 let lastPosition = { x: 0, y: 0 };  // Initialiser la dernière position connue
 let lastDirection = 'down'; // Initialiser la dernière direction connue
