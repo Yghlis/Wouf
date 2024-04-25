@@ -6,10 +6,31 @@ console.log('Script started successfully');
 
 let lastPosition = { x: 0, y: 0 };  // Initialiser la dernière position connue
 let lastDirection = 'down'; // Initialiser la dernière direction connue
+let noteWebsite: any;  // Déclaration à déplacer ici pour être accessible dans toutes les fonctions
+let cguWebsite: any;
 
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     console.log('Scripting API ready');
+
+    cguWebsite = WA.ui.website.open({
+        url: "./src/cgu/index.html",
+        position: { vertical: "top", horizontal: "middle" },
+        size: { height: "30vh", width: "50vw" },
+        margin: { top: "10vh" },
+        allowApi: true,
+    });
+
+    // Écoute les messages envoyés par les iframes
+    window.addEventListener('message', (event) => {
+        if (event.data.action === 'closeCGU') {
+            if (cguWebsite) {
+                cguWebsite.close();
+                console.log('CGU window closed');
+            }
+        }
+    });
+
 
     // Track player's movement to determine the last known position and direction
     WA.player.onPlayerMove((moveData) => {
@@ -17,66 +38,75 @@ WA.onInit().then(() => {
         lastDirection = moveData.direction;
     });
 
+    // Réagit aux changements de la variable 'addRole'.
+    WA.state.onVariableChange('addRole').subscribe((addRole) => {
+        console.log("La note a été mise à jour :", addRole);
+    });
+
+    // Accès à la salle de réunion Jitsi
     WA.room.area.onEnter('jitsiMeetingRoom').subscribe(async () => {
         console.log(`The player ${WA.player.name} has entered the zone.`);
-        if (!WA.player.tags.includes('afdfdfdmin')) {
-            console.log('Access denied to the jitsiMeetingRoom. You do not have the "admin" tag.');
+        const playerRole = WA.state.addRole;
 
-            // Calculate a position in front of the jitsiMeetingRoom based on last direction
+        if (playerRole !== 'administrateur') {
+            console.log('Access denied to the jitsiMeetingRoom. You do not have the "admin" role.');
+
             let teleportX = lastPosition.x;
             let teleportY = lastPosition.y;
-
             switch (lastDirection) {
                 case 'down': teleportY -= 1; break;
                 case 'up': teleportY += 1; break;
                 case 'left': teleportX += 1; break;
                 case 'right': teleportX -= 1; break;
             }
-
-            // Use teleport to move the player
             await WA.player.teleport(teleportX, teleportY);
+
             WA.ui.displayActionMessage({
                 message: "You cannot access this conference, please contact an administrator if the problem persists",
-                callback: () => {
-                    console.log('The player has confirmed the message.');
-                },
+                callback: () => console.log('The player has confirmed the message.'),
                 type: "warning",
             });
         } else {
             console.log('Welcome to the jitsiMeetingRoom!');
-            await WA.players.configureTracking();
-            const players = WA.players.list();
-            for (const player of players) {
-                console.log(`Player ${player.name} is near you`);
-            }
+            // Afficher les autres joueurs à proximité ou toute autre logique...
         }
     });
 
-    function openArray() {
-        WA.ui.website.open({
+
+    // Entrée et sortie de la zone 'visibileRole'
+    WA.room.onEnterLayer("visibileRole").subscribe(async () => {
+        console.log("Entering visibileRole layer");
+
+        noteWebsite = await WA.ui.website.open({
             url: "./src/role/tableau.html",
             position: {
-                vertical: "middle",
-                horizontal: "middle"
+                vertical: "top",
+                horizontal: "middle",
             },
             size: {
-                width: "90%",
-                height: "90%"
+                height: "30vh",
+                width: "50vw",
             },
-            visible: true,
+            margin: {
+                top: "10vh",
+            },
             allowApi: true,
-            allowPolicy: "fullscreen"
-        }).then(website => {
-            console.log("Calendar opened successfully");
-        
-        }).catch(err => {
-            console.error("Error opening calendar", err);
         });
-    }
-
-    WA.room.area.onEnter('clock').subscribe(() => {
-        openArray();
     });
+
+    WA.room.onLeaveLayer("visibileRole").subscribe(() => {
+        if (noteWebsite) noteWebsite.close();
+        console.log(WA.state.addRole);
+    });
+
+    bootstrapExtra().then(() => {
+        WA.state.onVariableChange('addRole').subscribe((newRole) => {
+            console.log("Le rôle a été mis à jour :", newRole);
+        });
+        // ... Autre code pour gérer les entrées/sorties de la zone 'visibileRole' et autres interactions
+    }).catch(e => console.error(e));
+
+
 
     // Add the action bar button
     WA.ui.actionBar.addButton({
@@ -98,12 +128,9 @@ WA.onInit().then(() => {
 
 }).catch(e => console.error(e));
 
-console.log(document);
-window.addEventListener('message', function(event) {
-    // Assurez-vous que le message vient de la source attendue ou vérifiez le contenu du message
-   
-        console.log("Data from calendar:", event.data);
-    
-});
+ 
+
+
+
 
 export {};
