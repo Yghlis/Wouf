@@ -27,6 +27,7 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 index: "./index.html",
+                tableau: "./src/role/tableau.html",
                 ...getMapsScripts(maps),
             },
         },
