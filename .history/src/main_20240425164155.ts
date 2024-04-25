@@ -93,7 +93,16 @@ WA.onInit().then(() => {
         });
     });
 
-  
+    WA.room.onLeaveLayer("visibileRole").subscribe(() => {
+        if (noteWebsite) noteWebsite.close();
+        console.log(WA.state.addRole);
+    });
+
+    bootstrapExtra().then(() => {
+        WA.state.onVariableChange('addRole').subscribe((newRole) => {
+            console.log("Le rôle a été mis à jour :", newRole);
+        });
+    }).catch(e => console.error(e));
 
 
     

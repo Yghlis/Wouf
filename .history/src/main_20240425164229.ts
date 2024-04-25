@@ -94,6 +94,11 @@ WA.onInit().then(() => {
     });
 
   
+    bootstrapExtra().then(() => {
+        WA.state.onVariableChange('addRole').subscribe((newRole) => {
+            console.log("Le rôle a été mis à jour :", newRole);
+        });
+    }).catch(e => console.error(e));
 
 
     
