@@ -43,11 +43,9 @@ WA.onInit().then(() => {
     // Accès à la salle de réunion Jitsi
     WA.room.area.onEnter('jitsiMeetingRoom').subscribe(async () => {
         console.log(`The player ${WA.player.name} has entered the zone.`);
-        const playerTags = WA.player.tags; // Récupérer les tags du joueur
+        const playerRole = WA.state.addRole;
 
-        console.log('Player tags:', playerTags);
-
-        if (!playerTags.includes('administrateur')) {
+        if (playerRole !== 'administrateur') {
             console.log('Access denied to the jitsiMeetingRoom. You do not have the "admin" role.');
 
             let teleportX = lastPosition.x;

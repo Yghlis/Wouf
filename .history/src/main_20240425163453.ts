@@ -47,7 +47,7 @@ WA.onInit().then(() => {
 
         console.log('Player tags:', playerTags);
 
-        if (!playerTags.includes('administrateur')) {
+        if (playerRole !== 'administrateur') {
             console.log('Access denied to the jitsiMeetingRoom. You do not have the "admin" role.');
 
             let teleportX = lastPosition.x;
