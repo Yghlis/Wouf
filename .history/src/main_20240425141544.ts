@@ -13,7 +13,7 @@ let cguWebsite: any;
 WA.onInit().then(() => {
     console.log('Scripting API ready');
 
-    cguWebsite = WA.ui.website.open({
+    /*cguWebsite = WA.ui.website.open({
         url: "./src/cgu/index.html",
         position: { vertical: "top", horizontal: "middle" },
         size: { height: "30vh", width: "50vw" },
@@ -30,11 +30,6 @@ WA.onInit().then(() => {
             }
         }
     });
-
-
-sessionStorage.setItem('testValue', 'initialValue');
-console.log('Initial value set in sessionStorage:', sessionStorage.getItem('testValue'));
-
 
     WA.ui.actionBar.addButton({
         id: 'register-btn',
@@ -94,8 +89,10 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
             });
         } else {
             console.log('Welcome to the jitsiMeetingRoom!');
+            // Afficher les autres joueurs à proximité ou toute autre logique...
         }
     });
+
 
   
     WA.room.onEnterLayer("visibileRole").subscribe(async () => {

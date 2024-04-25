@@ -31,11 +31,6 @@ WA.onInit().then(() => {
         }
     });
 
-
-sessionStorage.setItem('testValue', 'initialValue');
-console.log('Initial value set in sessionStorage:', sessionStorage.getItem('testValue'));
-
-
     WA.ui.actionBar.addButton({
         id: 'register-btn',
         type: 'action',
@@ -57,6 +52,8 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
         }
     });
     
+    
+
 
     // Track player's movement to determine the last known position and direction
     WA.player.onPlayerMove((moveData) => {
@@ -94,8 +91,10 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
             });
         } else {
             console.log('Welcome to the jitsiMeetingRoom!');
+            // Afficher les autres joueurs à proximité ou toute autre logique...
         }
     });
+
 
   
     WA.room.onEnterLayer("visibileRole").subscribe(async () => {
@@ -137,12 +136,6 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
     }).catch(e => console.error(e));
 
 }).catch(e => console.error(e));
-
-setTimeout(() => {
-    const newSpriteUrl = 'url_to_new_sprite_image.png'; // Adjust the URL to your new sprite image
-    WA.player.setCustomPlayerSprite(newSpriteUrl);
-    console.log('Custom sprite has been set after 10 seconds');
-}, 10000);
 
  
 

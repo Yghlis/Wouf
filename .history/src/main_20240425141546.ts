@@ -31,11 +31,6 @@ WA.onInit().then(() => {
         }
     });
 
-
-sessionStorage.setItem('testValue', 'initialValue');
-console.log('Initial value set in sessionStorage:', sessionStorage.getItem('testValue'));
-
-
     WA.ui.actionBar.addButton({
         id: 'register-btn',
         type: 'action',
@@ -94,8 +89,10 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
             });
         } else {
             console.log('Welcome to the jitsiMeetingRoom!');
+            // Afficher les autres joueurs à proximité ou toute autre logique...
         }
     });
+
 
   
     WA.room.onEnterLayer("visibileRole").subscribe(async () => {

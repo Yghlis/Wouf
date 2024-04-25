@@ -31,11 +31,6 @@ WA.onInit().then(() => {
         }
     });
 
-
-sessionStorage.setItem('testValue', 'initialValue');
-console.log('Initial value set in sessionStorage:', sessionStorage.getItem('testValue'));
-
-
     WA.ui.actionBar.addButton({
         id: 'register-btn',
         type: 'action',
@@ -43,20 +38,12 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
         toolTip: 'Register',
         callback: (event) => {
             console.log('Button clicked', event);
-            // Utilise openModal pour ouvrir Wikipedia dans un modal
-            WA.ui.modal.openModal({
-                title: "Wikipedia",
-                src: 'https://www.wikipedia.org/',
-                allow: "fullscreen",  // Permet le plein écran dans le modal
-                position: "right",   // Centre le modal au milieu de l'écran
-                size: {               // Définit la taille du modal
-                    width: 800,       // Largeur en pixels
-                    height: 600       // Hauteur en pixels
-                }
-            });
+            window.open('https://www.wikipedia.org/', '_blank');  // Ouvre Wikipedia dans un nouvel onglet
         }
     });
+
     
+
 
     // Track player's movement to determine the last known position and direction
     WA.player.onPlayerMove((moveData) => {
@@ -94,8 +81,10 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
             });
         } else {
             console.log('Welcome to the jitsiMeetingRoom!');
+            // Afficher les autres joueurs à proximité ou toute autre logique...
         }
     });
+
 
   
     WA.room.onEnterLayer("visibileRole").subscribe(async () => {
@@ -137,12 +126,6 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
     }).catch(e => console.error(e));
 
 }).catch(e => console.error(e));
-
-setTimeout(() => {
-    const newSpriteUrl = 'url_to_new_sprite_image.png'; // Adjust the URL to your new sprite image
-    WA.player.setCustomPlayerSprite(newSpriteUrl);
-    console.log('Custom sprite has been set after 10 seconds');
-}, 10000);
 
  
 

@@ -31,32 +31,17 @@ WA.onInit().then(() => {
         }
     });
 
-
-sessionStorage.setItem('testValue', 'initialValue');
-console.log('Initial value set in sessionStorage:', sessionStorage.getItem('testValue'));
-
-
     WA.ui.actionBar.addButton({
         id: 'register-btn',
         type: 'action',
-        imageSrc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/1920px-Wikipedia-logo-v2.svg',  // Exemple avec le logo de Wikipedia
+        imageSrc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/1920px-Wikipedia-logo-v2.svg.png',  // Exemple avec le logo de Wikipedia
         toolTip: 'Register',
         callback: (event) => {
             console.log('Button clicked', event);
-            // Utilise openModal pour ouvrir Wikipedia dans un modal
-            WA.ui.modal.openModal({
-                title: "Wikipedia",
-                src: 'https://www.wikipedia.org/',
-                allow: "fullscreen",  // Permet le plein écran dans le modal
-                position: "right",   // Centre le modal au milieu de l'écran
-                size: {               // Définit la taille du modal
-                    width: 800,       // Largeur en pixels
-                    height: 600       // Hauteur en pixels
-                }
-            });
+            window.open('https://www.wikipedia.org/', '_blank');  // Ouvre Wikipedia dans un nouvel onglet
         }
     });
-    
+
 
     // Track player's movement to determine the last known position and direction
     WA.player.onPlayerMove((moveData) => {
@@ -94,10 +79,12 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
             });
         } else {
             console.log('Welcome to the jitsiMeetingRoom!');
+            // Afficher les autres joueurs à proximité ou toute autre logique...
         }
     });
 
-  
+
+    // Entrée et sortie de la zone 'visibileRole'
     WA.room.onEnterLayer("visibileRole").subscribe(async () => {
         console.log("Entering visibileRole layer");
 
@@ -127,9 +114,23 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
         WA.state.onVariableChange('addRole').subscribe((newRole) => {
             console.log("Le rôle a été mis à jour :", newRole);
         });
+        // ... Autre code pour gérer les entrées/sorties de la zone 'visibileRole' et autres interactions
     }).catch(e => console.error(e));
 
 
+
+    // Add the action bar button
+    WA.ui.actionBar.addButton({
+        id: 'register-btn',
+        type: 'action',
+        imageSrc: 'https://www.google.com/imgres?q=naruto&imgurl=https%3A%2F%2Fstatic.wikia.nocookie.net%2Fnaruto%2Fimages%2Ff%2Ff1%2FNaruto_Partie_I.png%2Frevision%2Flatest%2Fscale-to-width-down%2F1200%3Fcb%3D20151201180820%26path-prefix%3Dfr&imgrefurl=https%3A%2F%2Fnaruto.fandom.com%2Ffr%2Fwiki%2FNaruto_Uzumaki&docid=oRct0Ye4E50Z4M&tbnid=5I4R9HNQovIl2M&vet=12ahUKEwibx76iituFAxWkVqQEHUOJDq0QM3oECBQQAA..i&w=1200&h=900&hcb=2&ved=2ahUKEwibx76iituFAxWkVqQEHUOJDq0QM3oECBQQAA', // Remplacez par l'URL de votre image
+        toolTip: 'Register',
+        callback: (event) => {
+            console.log('Button clicked', event);
+            // Quand un utilisateur clique sur le bouton de la barre d'actions 'Register', nous le supprimons.
+            WA.ui.actionBar.removeButton('register-btn');
+        }
+    });
     
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
@@ -137,12 +138,6 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
     }).catch(e => console.error(e));
 
 }).catch(e => console.error(e));
-
-setTimeout(() => {
-    const newSpriteUrl = 'url_to_new_sprite_image.png'; // Adjust the URL to your new sprite image
-    WA.player.setCustomPlayerSprite(newSpriteUrl);
-    console.log('Custom sprite has been set after 10 seconds');
-}, 10000);
 
  
 

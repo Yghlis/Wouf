@@ -31,7 +31,7 @@ WA.onInit().then(() => {
         }
     });
 
-
+    // Instancier une valeur dans le sessionStorage
 sessionStorage.setItem('testValue', 'initialValue');
 console.log('Initial value set in sessionStorage:', sessionStorage.getItem('testValue'));
 

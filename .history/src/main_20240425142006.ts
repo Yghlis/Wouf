@@ -31,11 +31,6 @@ WA.onInit().then(() => {
         }
     });
 
-
-sessionStorage.setItem('testValue', 'initialValue');
-console.log('Initial value set in sessionStorage:', sessionStorage.getItem('testValue'));
-
-
     WA.ui.actionBar.addButton({
         id: 'register-btn',
         type: 'action',

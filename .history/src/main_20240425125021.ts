@@ -13,7 +13,7 @@ let cguWebsite: any;
 WA.onInit().then(() => {
     console.log('Scripting API ready');
 
-    cguWebsite = WA.ui.website.open({
+    /*cguWebsite = WA.ui.website.open({
         url: "./src/cgu/index.html",
         position: { vertical: "top", horizontal: "middle" },
         size: { height: "30vh", width: "50vw" },
@@ -29,12 +29,7 @@ WA.onInit().then(() => {
                 console.log('CGU window closed');
             }
         }
-    });
-
-
-sessionStorage.setItem('testValue', 'initialValue');
-console.log('Initial value set in sessionStorage:', sessionStorage.getItem('testValue'));
-
+    });*/
 
     WA.ui.actionBar.addButton({
         id: 'register-btn',
@@ -94,8 +89,10 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
             });
         } else {
             console.log('Welcome to the jitsiMeetingRoom!');
+            // Afficher les autres joueurs à proximité ou toute autre logique...
         }
     });
+
 
   
     WA.room.onEnterLayer("visibileRole").subscribe(async () => {
@@ -137,12 +134,6 @@ console.log('Initial value set in sessionStorage:', sessionStorage.getItem('test
     }).catch(e => console.error(e));
 
 }).catch(e => console.error(e));
-
-setTimeout(() => {
-    const newSpriteUrl = 'url_to_new_sprite_image.png'; // Adjust the URL to your new sprite image
-    WA.player.setCustomPlayerSprite(newSpriteUrl);
-    console.log('Custom sprite has been set after 10 seconds');
-}, 10000);
 
  
 
