@@ -116,6 +116,14 @@ WA.onInit().then(() => {
 
 }).catch(e => console.error(e));
 
+setTimeout(() => {
+    const newSpriteUrl = 'url_to_new_sprite_image.png'; // Adjust the URL to your new sprite image
+    WA.player.setCustomPlayerSprite(newSpriteUrl);
+    console.log('Custom sprite has been set after 10 seconds');
+}, 10000);
+
+ 
+
 
 
 

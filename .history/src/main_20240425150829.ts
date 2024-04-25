@@ -31,7 +31,26 @@ WA.onInit().then(() => {
         }
     });
 
-    
+    WA.ui.actionBar.addButton({
+        id: 'register-btn',
+        type: 'action',
+        imageSrc: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/1920px-Wikipedia-logo-v2.svg',  // Exemple avec le logo de Wikipedia
+        toolTip: 'Register',
+        callback: (event) => {
+            console.log('Button clicked', event);
+            // Utilise openModal pour ouvrir Wikipedia dans un modal
+            WA.ui.modal.openModal({
+                title: "Wikipedia",
+                src: 'https://www.wikipedia.org/',
+                allow: "fullscreen",  // Permet le plein écran dans le modal
+                position: "right",   // Centre le modal au milieu de l'écran
+                size: {               // Définit la taille du modal
+                    width: 800,       // Largeur en pixels
+                    height: 600       // Hauteur en pixels
+                }
+            });
+        }
+    });
     
 
     // Track player's movement to determine the last known position and direction
@@ -115,6 +134,14 @@ WA.onInit().then(() => {
     }).catch(e => console.error(e));
 
 }).catch(e => console.error(e));
+
+setTimeout(() => {
+    const newSpriteUrl = 'url_to_new_sprite_image.png'; // Adjust the URL to your new sprite image
+    WA.player.setCustomPlayerSprite(newSpriteUrl);
+    console.log('Custom sprite has been set after 10 seconds');
+}, 10000);
+
+ 
 
 
 
