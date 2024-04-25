@@ -13,7 +13,6 @@ let cguWebsite: any;
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     console.log('Scripting API ready');
-    console.log('CA MARCHE')
 
     cguWebsite = WA.ui.website.open({
         url: "./src/cgu/index.html",

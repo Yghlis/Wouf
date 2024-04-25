@@ -3,7 +3,7 @@
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
-
+console.log('CA MARCHE')
 
 let lastPosition = { x: 0, y: 0 };  // Initialiser la dernière position connue
 let lastDirection = 'down'; // Initialiser la dernière direction connue
@@ -13,7 +13,6 @@ let cguWebsite: any;
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     console.log('Scripting API ready');
-    console.log('CA MARCHE')
 
     cguWebsite = WA.ui.website.open({
         url: "./src/cgu/index.html",
