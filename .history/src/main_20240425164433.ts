@@ -69,6 +69,32 @@ WA.onInit().then(() => {
             // Afficher les autres joueurs à proximité ou toute autre logique...
         }
     });
+
+
+  
+    WA.room.onEnterLayer("visibileRole").subscribe(async () => {
+        console.log("Entering visibileRole layer");
+
+        noteWebsite = await WA.ui.website.open({
+            url: "./src/role/tableau.html",
+            position: {
+                vertical: "top",
+                horizontal: "middle",
+            },
+            size: {
+                height: "30vh",
+                width: "50vw",
+            },
+            margin: {
+                top: "10vh",
+            },
+            allowApi: true,
+        });
+    });
+
+  
+
+
     
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {

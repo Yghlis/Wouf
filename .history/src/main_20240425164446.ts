@@ -69,6 +69,13 @@ WA.onInit().then(() => {
             // Afficher les autres joueurs à proximité ou toute autre logique...
         }
     });
+
+
+  
+
+  
+
+
     
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
