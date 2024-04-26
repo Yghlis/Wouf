@@ -28,7 +28,7 @@ export default defineConfig({
             input: {
                 index: "./index.html",
                 ash: "./src/ash.html",
-                cgu: "./src/cgu/index.html",
+                cgu: "./src/cgu/ash.html",
                 ...getMapsScripts(maps),
             },
         },
