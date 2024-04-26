@@ -79,9 +79,8 @@ WA.onInit().then(() => {
             WA.ui.modal.openModal({
                 title: 'ash',
                 src: 'http://localhost:5173/src/ash.html',
-                allow: 'fullscreen',  
+                allowApi: 'fullscreen',  
                 position: 'center',  
-                allowApi: true
                
             });
         }

@@ -81,7 +81,7 @@ WA.onInit().then(() => {
                 src: 'http://localhost:5173/src/ash.html',
                 allow: 'fullscreen',  
                 position: 'center',  
-                allowApi: true
+                allowApi:
                
             });
         }
