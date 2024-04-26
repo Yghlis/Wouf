@@ -72,7 +72,7 @@ WA.onInit().then(() => {
     WA.ui.actionBar.addButton({
         id: 'register-btn',
         type: 'action',
-        imageSrc: 'http://localhost:5173/tilesets/iconsheesh.png',
+        imageSrc: 'http://localhost:5173/tilesets/Wtilesets/icon-information.png',
         toolTip: 'Register',
         callback: (event) => {
             console.log('Button clicked', event);

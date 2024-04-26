@@ -72,16 +72,16 @@ WA.onInit().then(() => {
     WA.ui.actionBar.addButton({
         id: 'register-btn',
         type: 'action',
-        imageSrc: 'http://localhost:5173/tilesets/iconsheesh.png',
+        imageSrc: '<Your image url>',
         toolTip: 'Register',
         callback: (event) => {
             console.log('Button clicked', event);
             WA.ui.modal.openModal({
                 title: 'ash',
                 src: 'http://localhost:5173/src/ash.html',
-                allow: 'fullscreen',  
+                allow: '',  
                 position: 'center',  
-                size: { width: 400, height: 600 }  
+                
             });
         }
     });

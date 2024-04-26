@@ -66,26 +66,22 @@ WA.onInit().then(() => {
             });
         } else {
             console.log('Welcome to the jitsiMeetingRoom!');
+            // Afficher les autres joueurs à proximité ou toute autre logique...
         }
     });
 
     WA.ui.actionBar.addButton({
         id: 'register-btn',
         type: 'action',
-        imageSrc: 'http://localhost:5173/tilesets/iconsheesh.png',
+        imageSrc: '<Your image url>',
         toolTip: 'Register',
         callback: (event) => {
             console.log('Button clicked', event);
-            WA.ui.modal.openModal({
-                title: 'ash',
-                src: 'http://localhost:5173/src/ash.html',
-                allow: 'fullscreen',  
-                position: 'center',  
-                size: { width: 400, height: 600 }  
-            });
+            // When a user clicks on the action bar button 'Register', we remove it.
+            WA.ui.actionBar.removeButton('register-btn');
         }
     });
-
+    
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
