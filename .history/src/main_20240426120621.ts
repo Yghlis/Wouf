@@ -81,14 +81,12 @@ WA.onInit().then(() => {
                 src: 'http://localhost:5173/src/ash.html',
                 allow: 'fullscreen',  
                 position: 'center',  
-                allowApi: true,
+                allowApi: true
                
             });
         }
     });
 
-    WA.player.setOutlineColor(255, 0, 0);
-    
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');

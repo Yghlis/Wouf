@@ -87,8 +87,6 @@ WA.onInit().then(() => {
         }
     });
 
-    WA.player.setOutlineColor(255, 0, 0);
-    
     // Bootstrap the Scripting API Extra library
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');
